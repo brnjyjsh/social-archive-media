@@ -1,0 +1,197 @@
+body, html 
+{
+	height:100%;
+	padding:0px;
+	margin:0px;
+}
+body 
+{
+	background-color: #ffffff; 
+	background-size: 100% 100%;
+}
+
+#bar 
+{
+	height:110px;
+	background-color: #303841; 
+	font-size: 20px;
+	padding: 4px;
+}
+
+.logo 
+{
+	background: url('../image/logo.png');
+	width: auto;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+  	background-position: top;
+  	object-fit: contain; 
+}
+
+#container 
+{
+	width:1150px;
+	margin:auto;
+}
+
+#container a 
+{
+	text-decoration:none;
+}
+
+#container a:hover 
+{
+	color:#303841;
+}
+
+.sign-in-form 
+{
+	width:1150px;
+	margin:auto;
+}
+
+.sign-in-form h1 
+{
+	color:#000000;
+	margin:auto;
+}
+
+.sign-in-form h2 
+{
+	color:#000000;
+}
+
+.sign-in-form b 
+{
+	color:#000000;
+	margin-left:760px;
+}
+
+.sign-in-form strong 
+{
+	margin-left:210px;
+}
+
+.sign-in-form  hr
+{
+	width:410px;
+	float:left;
+}
+
+.sign-in-form label 
+{
+	color:#000000;
+	font-size:19px;
+	font-weight:bold;
+}
+
+.form-1 
+{
+	width:300px;
+	text-indent:5px;
+	height:25px;
+	font-size:15px;
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	-o-border-radius:5px;
+}
+
+.form-2 
+{
+	width:60px;
+	text-indent:5px;
+	height:25px;
+	font-size:15px;
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	-o-border-radius:5px;
+}
+
+.btn-sign-in 
+{
+	color:#000000;
+	font-size:19px;	
+	width:200px;
+	line-height:30px;
+	background-color:#ffffff;
+	border:2px solid #303841;
+	border-radius:100px;
+	-webkit-border-radius:100px;
+	-moz-border-radius:100px;
+	-o-border-radius:100px;
+	margin-left: auto;
+}
+
+.btn-sign-in:hover 
+{
+	color:#ffffff;
+	background-color:#303841;
+	border:2px solid #303841;
+	cursor: pointer;
+}
+
+.btn-sign-up 
+{
+	color:#ffffff;
+	font-size:19px;
+	width:100px;
+	line-height:30px;
+	background-color:#303841;
+	border:2px solid #303841;
+	border-radius:100px;
+	-webkit-border-radius:100px;
+	-moz-border-radius:100px;
+	-o-border-radius:100px;
+}
+
+.btn-sign-up:hover 
+{
+	color:#ffffff;
+	font-size:19px;
+	width:100px;
+	line-height:30px;
+	background-color:#303841;
+	border:2px solid #303841;
+	border-radius:100px;
+	-webkit-border-radius:100px;
+	-moz-border-radius:100px;
+	-o-border-radius:100px;
+}
+
+.sign-up-form-1 
+{
+	width:700px;
+	background-color:#eeeeee;
+	margin:auto;
+	border-radius: 10px;
+}
+
+.sign-up-form-1 table 
+{
+	width:100%;
+	background-color:#eeeeee;
+	margin:auto;
+	border-radius: 10px;
+}
+
+.sign-up-form-1 legend 
+{
+	font-size:30px;
+	font-weight:bold;
+}
+
+#footer 
+{
+    padding-top: 25px;
+    padding-bottom: 25px;
+    text-align: center;
+}
+
+hr.solid 
+{
+  border-top: 3px solid #cccccc;
+  border-radius: 100px;
+}

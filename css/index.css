@@ -1,0 +1,118 @@
+body, html 
+{
+	height:100%;
+	padding:auto;
+	margin:0px;
+}
+body 
+{
+	background-image: url('../image/bg-index.png');
+	background-attachment: fixed;
+	background-size: 100% 100%;
+	background-position: center;
+}
+
+#header 
+{
+	background-color: #303841;
+	width:100%;
+	margin-top: auto;
+}
+
+.small_logo
+{
+	background: url('../image/logosmall.png');
+	width: auto;
+	height: 100%;
+	background-repeat: no-repeat;
+  	background-attachment: scroll;
+}
+
+.head-view 
+{
+	margin:auto;
+	width:1000px;
+	line-height:50px;
+}
+
+.head-view ul 
+{
+	width: 1000px;
+	margin: auto;
+}
+
+.head-view  li 
+{
+	display: inline;
+	color: #fff;
+	margin: 0px 80px 0px 5px;
+}
+
+.head-view b 
+{
+	color:#ffffff;
+	text-shadow:3px 3px 3px #000000;
+	font-size:50px;
+}
+
+.btn-sign-in 
+{
+	color:#000000;
+	font-size:19px;
+	width:100px;
+	line-height:30px;
+	background-color:#ffffff;
+	border:2px solid #303841;
+	border-radius:100px;
+	-webkit-border-radius:100px;
+	-moz-border-radius:100px;
+	-o-border-radius:100px;
+}
+
+.btn-sign-in:hover 
+{
+	color:#ffffff;
+	background-color:#303841;
+	border:2px solid #000000;
+	cursor: pointer;
+}
+
+.btn-sign-up 
+{
+	color:#000000;
+	font-size:19px;
+	width:100px;
+	line-height:30px;
+	background-color:#ffffff;
+	border:2px solid #303841;
+	border-radius:100px;
+	-webkit-border-radius:100px;
+	-moz-border-radius:100px;
+	-o-border-radius:100px;
+}
+
+.btn-sign-up:hover 
+{
+	color:#ffffff;
+	background-color:#303841;
+	border:2px solid #000000;
+	cursor: pointer;
+}
+
+#container 
+{
+	width:1200px;
+	margin:auto;
+}
+
+.image-display 
+{
+	width:850px;
+	margin:auto;
+}
+
+.img-style 
+{
+	width:110%;
+	height:130%;
+}

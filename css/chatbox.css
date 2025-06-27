@@ -1,0 +1,163 @@
+body, html 
+{
+  height:100%;
+  padding:0px;
+  margin:0px;
+}
+
+body 
+{
+  background-image: url('../image/bg-index.png');
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  background-position: center;
+}
+
+
+#header 
+{
+  background-color: #303841;
+  width:100%;
+  margin-top: auto;
+}
+
+.small_logo
+{
+  background: url('../image/logosmall.png');
+  width: auto;
+  height: 100%;
+  background-repeat: no-repeat;
+    background-attachment: scroll;
+}
+
+.head-view 
+{
+  margin:auto;
+  width:1000px;
+  line-height:50px;
+  text-align: center;
+}
+
+.head-view label 
+{
+  color:#ffffff;
+  font-size:20px;
+  font-weight:bold;
+  text-shadow:3px 3px 3px #000000;
+  cursor: pointer;
+}
+
+.head-view ul 
+{
+  width: 1000px;
+  margin: auto;
+}
+
+.head-view  li 
+{
+  display: inline;
+  color: #fff;
+  margin: 0px 30px 0px 5px;
+}
+
+.head-view  li a 
+{
+  text-decoration:none;
+}
+
+.head-view label:hover 
+{
+  padding: 5px 0px 5px 0px;
+  border-bottom: 4px solid #fff;
+  cursor: pointer;
+}
+
+
+#chat_room 
+{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+
+    width: 60%;
+    border-radius: 10px;
+}
+
+#chat_room td, #chat_room th {
+    border: 3px solid #ddd;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.btn-sign-in 
+{
+  color:#000000;
+  font-size:19px;
+  width:100px;
+  line-height:30px;
+  background-color:#ffffff;
+  border:2px solid #000000;
+  border-radius:100px;
+  -webkit-border-radius:100px;
+  -moz-border-radius:100px;
+  -o-border-radius:100px;
+  margin-top: 8px;
+  margin-right: -80px;
+  float: right;
+}
+
+#chat_room tr:nth-child(even)
+{
+  background-color: #f2f2f2;
+}
+
+/* #chat_room tr:hover {background-color: #ddd;} */
+
+#chat_room th 
+{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-image: url('../image/ABSTRACT WHITE.png');
+    background-size: 350%;
+    border-radius: 100px;
+}
+
+.button { /* style for send button */
+    background-color: #303841; /* Green */
+    border: none;
+    color: white;
+    padding: 20px 45px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 10px;
+    cursor: pointer;
+    float: right;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.button2:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+textarea 
+{ 
+    width: 80%;
+    resize: none;
+    border-radius: 10px;
+
+}
+
+.float-time
+{
+  float: right;
+}
+
+#footer 
+{
+    padding-top: 25px;
+    padding-bottom: 25px;
+    text-align: center;
+}
