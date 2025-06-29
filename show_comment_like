@@ -1,0 +1,10 @@
+<?php
+include('includes/database.php');
+
+if (isset($_POST['comment_id'])) {
+	$comment_id = $_POST['comment_id'];
+
+	$likes = mysqli_query($con, "SELECT COUNT(*) AS total FROM comment_likes WHERE comment_id='$comment_id'");
+	$row = mysqli_fetch_assoc($likes);
+	echo $row['total'];
+}

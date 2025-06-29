@@ -1,7 +1,6 @@
 <?php
 function time_stamp($session_time)
 {
-
 	$time_difference = time() - $session_time;
 	$seconds = $time_difference;
 	$minutes = round($time_difference / 60);
@@ -12,365 +11,217 @@ function time_stamp($session_time)
 	$years = round($time_difference / 29030400);
 
 	if ($seconds <= 60) {
-		echo "$seconds seconds ago";
+		return "$seconds seconds ago";
 	} else if ($minutes <= 60) {
-		if ($minutes == 1) {
-			echo "one minute ago";
-		} else {
-			echo "$minutes minutes ago";
-		}
+		return $minutes == 1 ? "one minute ago" : "$minutes minutes ago";
 	} else if ($hours <= 24) {
-		if ($hours == 1) {
-			echo "one hour ago";
-		} else {
-			echo "$hours hours ago";
-		}
+		return $hours == 1 ? "one hour ago" : "$hours hours ago";
 	} else if ($days <= 7) {
-		if ($days == 1) {
-			echo "one day ago";
-		} else {
-			echo "$days days ago";
-		}
+		return $days == 1 ? "one day ago" : "$days days ago";
 	} else if ($weeks <= 4) {
-		if ($weeks == 1) {
-			echo "one week ago";
-		} else {
-			echo "$weeks weeks ago";
-		}
+		return $weeks == 1 ? "one week ago" : "$weeks weeks ago";
 	} else if ($months <= 12) {
-		if ($months == 1) {
-			echo "one month ago";
-		} else {
-			echo "$months months ago";
-		}
+		return $months == 1 ? "one month ago" : "$months months ago";
 	} else {
-		if ($years == 1) {
-			echo "one year ago";
-		} else {
-			echo "$years years ago";
-		}
+		return $years == 1 ? "one year ago" : "$years years ago";
 	}
 }
 
-?>
 
+include('includes/database.php');
+include('session.php');
+?>
 <!DOCTYPE html>
 <html>
 
 <head>
 	<title>Archive</title>
-	<link href="output.css" rel="stylesheet">
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="css/style.css">
 </head>
 
-<body style="font-family: tahoma;">
-	<?php include('session.php'); ?>
+<body class="font-[Tahoma] bg-gray-50">
 
-	<div id="header"> <!--HEADER-->
-		<div class="small_logo">
-			<div class="head-view">
-
-				<ul>
-					<li><a href="timeline.php" title="<?php echo $username ?>"><label><?php echo $username ?></label></a></li>
-					<li><a href="home.php" title="Home"><label class="active">Home</label></a></li>
-					<li><a href="chatbox.php" title="Home"><label class="active">Chatbox</label></a></li>
-					<!--
-				<li><a href="profile.php" title="Home"><label>Profile</label></a></li>
-				<li><a href="photos.php" title="Settings"><label>Photos</label></a></li>
-				-->
-					<li><a href="logout.php" title="Log out"><button class="btn-sign-in" value="Log out">Log out</button></a></li>
-				</ul>
+	<?php if (isset($_SESSION['signup_success'])): ?>
+		<div id="signupToast" class="fixed top-5 right-5 z-50 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded shadow-md">
+			<div class="flex justify-between items-center">
+				<span><?php echo $_SESSION['signup_success']; ?></span>
+				<button onclick="document.getElementById('signupToast').remove()" class="ml-4 font-bold text-xl leading-none">&times;</button>
 			</div>
+		</div>
+		<script>
+			setTimeout(() => {
+				document.getElementById('signupToast')?.remove();
+			}, 5000);
+		</script>
+		<?php unset($_SESSION['signup_success']); ?>
+	<?php endif; ?>
+
+	<div id="header" class="bg-white shadow p-4">
+		<div class="max-w-6xl mx-auto flex justify-between items-center">
+			<div class="text-xl font-bold">Archive</div>
+			<ul class="flex gap-4 text-sm">
+				<li><a href="timeline.php" class="hover:underline"><?php echo $username ?></a></li>
+				<li><a href="home.php" class="font-semibold text-blue-600">Home</a></li>
+				<li><a href="chatbox.php" class="font-semibold text-blue-600">Chatbox</a></li>
+				<li><a href="logout.php"><button class="px-3 py-1 bg-red-500 text-white rounded">Log out</button></a></li>
+			</ul>
 		</div>
 	</div>
-	<div id="container">
-		<!--USER CARD-->
-		<div id="left-nav">
 
-			<div class="clip1">
-				<a href="updatephoto.php" title="Change Profile Picture"><img src="<?php echo $row['profile_picture'] ?>"></a>
-			</div>
-
-			<div class="user-details">
-				<h3><?php echo $firstname ?>&nbsp;<?php echo $lastname ?></h3>
-			</div>
-
-			<br><br>
-
-		</div>
-
-
-
-		<div id="right-nav">
-			<div>
-				<form method="post" action="post.php" enctype="multipart/form-data">
-					<textarea placeholder="What's on your mind?" name="content" class="post-text" required></textarea>
-					<input type="file" name="image">
-					<button class="btn-share" name="Submit" value="Log out">Share</button>
-				</form>
-			</div>
-
-		</div>
-
-		<?php
-		include("includes/database.php");
-		$query = mySQLi_query($con, "SELECT * from user where user_id='$id' order by user_id DESC");
-		while ($row = mySQLi_fetch_array($query)) {
-			$id = $row['user_id'];
-		?>
-			<!--USER INFO-->
-			<div id="left-nav1">
-				<h2>Personal Info</h2>
-				<hr class="solid">
-				<table>
-					<tr>
-						<td><label>Username:</label></td>
-						<td width="20"></td>
-						<td><b><?php echo $row['username']; ?></b></td>
-					</tr>
-					<tr>
-						<td><label>Birthday:</label></td>
-						<td width="20"></td>
-						<td><b><?php echo $row['birthday']; ?></b></td>
-					</tr>
-					<tr>
-						<td><label>Gender:</label></td>
-						<td width="20"></td>
-						<td><b><?php echo $row['gender']; ?></b></td>
-					</tr>
-					<tr>
-						<td><label>Contact:</label></td>
-						<td width="20"></td>
-						<td><b><?php echo $row['number']; ?></b></td>
-					</tr>
-					<tr>
-						<td><label>Email:</label></td>
-						<td width="20"></td>
-						<td><b><?php echo $row['email']; ?></b></td>
-					</tr>
-					<!--
-				<tr>
-					<td><label>Image:</label></td>
-					<td width="20"></td>
-					<td><img src="<?php echo $row['profile_picture']; ?>"></td>
-				</tr>
-				-->
-				</table>
-				<hr class="solid">
-				<br>
-			</div>
-
-
-		<?php
-		}
-		?>
-
-
-		<?php
-		include("includes/database.php");
-		$query = mySQLi_query($con, "SELECT * from post LEFT JOIN user on user.user_id = post.user_id order by post_id DESC");
-		while ($row = mySQLi_fetch_array($query)) {
-			$posted_by = $row['firstname'] . " " . $row['lastname'];
-			$location = $row['post_image'];
-			$profile_picture = $row['profile_picture'];
-			$content = $row['content'];
-			$post_id = $row['post_id'];
-			$time = $row['created'];
-		?>
-
-			<!--USER POST-->
-
-			<div id="right-nav1">
-				<hr class="solid">
-				<div class="profile-pics">
-					<img src="<?php echo $profile_picture ?>">
-					<div class="user-details-1">
-						<b><?php echo $posted_by ?></b>
-						<strong><?php echo $time = time_stamp($time); ?></strong>
+	<div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-4 mt-6">
+		<!-- Left Profile -->
+		<div class="lg:w-1/4 bg-white p-4 rounded shadow">
+			<div class="mb-4">
+				<button onclick="document.getElementById('photoModal').classList.remove('hidden')">
+					<img src="<?php echo $row['profile_picture'] ?>" alt="Profile" class="w-full rounded hover:opacity-80">
+				</button>
+				<!-- Profile Upload Modal -->
+				<div id="photoModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden z-50">
+					<div class="bg-white p-6 rounded shadow-lg w-80 relative">
+						<button onclick="document.getElementById('photoModal').classList.add('hidden')" class="absolute top-2 right-2 text-gray-500 hover:text-black">&times;</button>
+						<h2 class="text-lg font-bold mb-4">Update Profile Picture</h2>
+						<form id="photoForm" enctype="multipart/form-data">
+							<input type="file" name="image" accept="image/*" required class="mb-4 w-full text-sm">
+							<button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded w-full">Upload</button>
+						</form>
 					</div>
-
-
 				</div>
 
-				<br />
-				<hr class="solid">
-				<div class="post-content">
+				<!-- Success Toast -->
+				<div id="photoToast" class="fixed top-5 right-5 bg-green-100 text-green-800 border border-green-400 px-4 py-2 rounded shadow hidden">
+					Profile picture updated!
+				</div>
 
-					<div class="delete-post">
-						<a href="delete_post.php<?php echo '?id=' . $post_id; ?>" title="Delete your post"><button class="btn-delete">X</button></a>
+
+			</div>
+			<h3 class="text-center font-bold text-lg"><?php echo $firstname . ' ' . $lastname ?></h3>
+		</div>
+
+		<!-- Post Form and Feed -->
+		<div class="flex-1">
+			<form method="post" action="post.php" enctype="multipart/form-data" class="bg-white p-4 rounded shadow mb-4">
+				<textarea name="content" placeholder="What's on your mind?" class="w-full border rounded p-2 mb-2" required></textarea>
+				<input type="file" name="image" class="mb-2">
+				<button type="submit" name="Submit" class="px-4 py-2 bg-blue-500 text-white rounded">Share</button>
+			</form>
+
+			<?php
+			$query = mysqli_query($con, "SELECT * FROM post LEFT JOIN user ON user.user_id = post.user_id ORDER BY post_id DESC");
+			while ($row = mysqli_fetch_array($query)) {
+			?>
+				<div class="bg-white p-4 rounded shadow mb-4">
+					<div class="flex gap-4 items-center">
+						<img src="<?php echo $row['profile_picture'] ?>" class="w-12 h-12 rounded-full">
+						<div>
+							<p class="font-bold"><?php echo $row['firstname'] . ' ' . $row['lastname']; ?></p>
+							<p class="text-xs text-gray-500"><?php echo time_stamp($row['created']); ?></p>
+						</div>
 					</div>
-
-					<center>
-						<p><?php echo $row['content']; ?></p>
-					</center>
-					<center>
-						<img src="<?php echo $location ?>">
-					</center>
-
-					<center>
-						<hr class="solid">
+					<p class="my-3"><?php echo $row['content']; ?></p>
+					<?php if ($row['post_image']): ?>
+						<img src="<?php echo $row['post_image'] ?>" class="w-full rounded mb-2">
+					<?php endif; ?>
+					<div class="flex justify-between items-center">
 						<div>
 							<?php
-							$query1 = mysqli_query($con, "select * from `like` where post_id='" . $row['post_id'] . "' and user_id='" . $_SESSION['id'] . "'");
-							if (mysqli_num_rows($query1) > 0) {
+							$liked = mysqli_query($con, "SELECT * FROM `like` WHERE post_id='{$row['post_id']}' AND user_id='{$_SESSION['id']}'");
+							$likeBtnClass = mysqli_num_rows($liked) > 0 ? 'unlike' : 'like';
+							$likeBtnText = mysqli_num_rows($liked) > 0 ? 'Unlike' : 'Like';
 							?>
-								<button value="<?php echo $row['post_id']; ?>" class="unlike">Unlike</button>
-							<?php
-							} else {
-							?>
-								<button value="<?php echo $row['post_id']; ?>" class="like">Like</button>
-							<?php
-							}
-							?>
+							<button value="<?php echo $row['post_id']; ?>" class="<?php echo $likeBtnClass; ?> text-blue-500"><?php echo $likeBtnText; ?></button>
 							<span id="show_like<?php echo $row['post_id']; ?>">
 								<?php
-								$query3 = mysqli_query($con, "select * from `like` where post_id='" . $row['post_id'] . "'");
-								echo mysqli_num_rows($query3);
+								$likes = mysqli_query($con, "SELECT * FROM `like` WHERE post_id='{$row['post_id']}'");
+								echo mysqli_num_rows($likes);
 								?>
 							</span>
 						</div>
-						<br>
-				</div>
-				</center>
+						<?php if ($row['user_id'] == $_SESSION['id']): ?>
+							<a href="delete_post.php?id=<?php echo $row['post_id']; ?>" class="text-red-500">Delete</a>
+						<?php endif; ?>
+					</div>
 
-
-				<?php
-				include("includes/database.php");
-				$comment = mySQLi_query($con, "SELECT * from comments where post_id='$post_id' order by post_id DESC");
-				while ($row = mySQLi_fetch_array($comment)) {
-					$comment_id = $row['comment_id'];
-					$content_comment = $row['content_comment'];
-					$time = $row['created'];
-					$post_id = $row['post_id'];
-					$user = $_SESSION['id'];
-
-				?>
-					<!--USER COMMENT-->
-					<div class="comment-display" <?php echo $comment_id ?>>
-						<div class="delete-post">
-							<a href="delete_comment.php<?php echo '?id=' . $comment_id; ?>" title="Delete your comment"><button class="btn-delete">X</button></a>
-						</div>
-						<div class="user-comment-name">
-							<img src="<?php echo $row['image']; ?>">
-							&nbsp;&nbsp;&nbsp;
-							<hr class="solid">
-							<div class="user-comment-posted">
-								<?php echo $row['name']; ?>
-								<b class="time-comment"><?php echo $time = time_stamp($time); ?></b>
+					<!-- Comments -->
+					<?php
+					$comments = mysqli_query($con, "SELECT * FROM comments WHERE post_id='{$row['post_id']}' ORDER BY comment_id ASC");
+					while ($c = mysqli_fetch_array($comments)) {
+					?>
+						<div class="ml-12 mt-2 p-2 bg-gray-100 rounded relative">
+							<div class="flex items-center gap-2">
+								<img src="<?php echo $c['image']; ?>" class="w-8 h-8 rounded-full">
+								<p class="text-sm font-bold"><?php echo $c['name']; ?></p>
+							</div>
+							<p class="text-sm mt-1"><?php echo $c['content_comment']; ?></p>
+							<div class="text-xs text-gray-500 flex gap-2 mt-1">
+								<span><?php echo time_stamp($c['created']); ?></span>
+								<?php if ($c['user_id'] == $_SESSION['id']): ?>
+									<a href="delete_comment.php?id=<?php echo $c['comment_id']; ?>" class="text-red-500">Delete</a>
+								<?php endif; ?>
 							</div>
 						</div>
+					<?php } ?>
 
-						<br>
-						<div class="comment"><?php echo $row['content_comment']; ?></div>
-						<br>
-
-					</div>
-
-
-				<?php
-				}
-				?>
-				<!--WRITE A COMMENT-->
-
-				<form method="POST" action="comment.php">
-					<div class="comment-area">
-
-						<?php $image = mysqli_query($con, "select * from user where user_id='$id'");
-						while ($row = mysqli_fetch_array($image)) {
-
-						?>
-							<img src="<?php echo $row['profile_picture']; ?>" width="50" height="50">
-						<?php } ?>
-
-						<div class="user-comment-box">
-							<input type="text" name="content_comment" placeholder="Write a comment." class="comment-text">
-							<input type="hidden" name="post_id" value="<?php echo $post_id ?>">
-							<input type="hidden" name="user_id" value="<?php echo $firstname . ' ' . $lastname  ?>">
-							<input type="hidden" name="image" value="<?php echo $profile_picture  ?>">
-							<input type="submit" name="post_comment" value="Enter" class="btn-comment">
-						</div>
-
-
-					</div>
-				</form>
-
-
-			</div>
-			<div><br><br><br><br></div>
-		<?php
-		}
-		?>
-
-
+					<!-- Add Comment -->
+					<form method="POST" action="comment.php" class="mt-2 ml-12 flex flex-wrap gap-2">
+						<input type="hidden" name="post_id" value="<?php echo $row['post_id']; ?>">
+						<input type="text" name="content_comment" placeholder="Write a comment..." class="flex-1 border rounded px-2 py-1 text-sm">
+						<input type="submit" name="post_comment" value="Comment" class="text-sm px-3 py-1 bg-blue-500 text-white rounded">
+					</form>
+				</div>
+			<?php } ?>
+		</div>
 	</div>
+
 	<script src="jquery-3.1.1.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-
-			$(document).on('click', '.like', function() {
-				var id = $(this).val();
-				var $this = $(this);
-				$this.toggleClass('like');
-				if ($this.hasClass('like')) {
-					$this.text('Like');
-				} else {
-					$this.text('Unlike');
-					$this.addClass("unlike");
-				}
-				$.ajax({
-					type: "POST",
-					url: "like.php",
-					data: {
-						id: id,
-						like: 1,
-					},
-					success: function() {
-						showLike(id);
-					}
-				});
-			});
-
-			$(document).on('click', '.unlike', function() {
-				var id = $(this).val();
-				var $this = $(this);
-				$this.toggleClass('unlike');
-				if ($this.hasClass('unlike')) {
-					$this.text('Unlike');
-				} else {
-					$this.text('Like');
-					$this.addClass("like");
-				}
-				$.ajax({
-					type: "POST",
-					url: "like.php",
-					data: {
-						id: id,
-						like: 1,
-					},
-					success: function() {
-						showLike(id);
-					}
-				});
-			});
-
+	<script>
+		$(document).on('click', '.like, .unlike', function() {
+			const id = $(this).val();
+			const btn = $(this);
+			btn.toggleClass('like unlike');
+			btn.text(btn.hasClass('like') ? 'Like' : 'Unlike');
+			$.post('like.php', {
+				id: id,
+				like: 1
+			}, () => showLike(id));
 		});
 
 		function showLike(id) {
-			$.ajax({
-				url: 'show_like.php',
-				type: 'POST',
-				async: false,
-				data: {
-					id: id,
-					showlike: 1
-				},
-				success: function(response) {
-					$('#show_like' + id).html(response);
-
-				}
+			$.post('show_like.php', {
+				id: id,
+				showlike: 1
+			}, function(response) {
+				$('#show_like' + id).html(response);
 			});
 		}
+
+		$('#photoForm').on('submit', function(e) {
+			e.preventDefault();
+			const formData = new FormData(this);
+
+			$.ajax({
+				url: 'upload_photo.php',
+				type: 'POST',
+				data: formData,
+				contentType: false,
+				processData: false,
+				success: function(imagePath) {
+					$('#photoModal').addClass('hidden');
+					$('#photoToast').removeClass('hidden');
+
+					// Optionally update the profile picture instantly
+					$('img[alt="Profile"]').attr('src', imagePath);
+
+					setTimeout(() => {
+						$('#photoToast').fadeOut();
+					}, 3000);
+				},
+				error: function() {
+					alert("Failed to upload. Please try again.");
+				}
+			});
+		});
 	</script>
 </body>
-
 
 </html>
